@@ -30,3 +30,9 @@ parms_df <- expand.grid(rep_num = rep_num_vals,
                           s_h = sh_vals,
                           N_val = N_val_vals
 )
+
+# run simulations
+sim_with_ci_df <- future_pmap(parms_df, infection_freq_rf_rmu_ci_sim,
+                                        .options = furrr_options(seed = TRUE),
+                                        .progress = TRUE) |>
+  list_rbind() 
