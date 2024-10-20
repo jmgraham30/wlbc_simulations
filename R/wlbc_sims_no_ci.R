@@ -35,3 +35,6 @@ sim_no_ci_df <- future_pmap(parms_df, infection_freq_rf_rmu_sim,
                                   .progress = TRUE) |>
   list_rbind()
 
+
+# save the results, note that only every other row is required
+# sim_no_ci_df[seq(1,nrow(sim_no_ci_df),by=2), ]
