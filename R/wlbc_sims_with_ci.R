@@ -18,7 +18,7 @@ sh_vals <- c(0.1,0.45) # CI strength
 # transmission rates and binomial proportions
 mu_vect_vals <- list(c(0.001,0.8),c(0.005,0.8),c(0.01,0.8),c(0.05,0.8),
                      c(0.1,0.8),c(0.15,0.8),c(0.2,0.8),c(0.25,0.8),
-                     c(0.3,0.8),c(0.35,0.8),c(0.4,0.8))
+                     c(0.3,0.8),c(0.35,0.8),c(0.4,0.8),c(0.45,0.8),c(0.5,0.8))
 bin_props_vals <- list(c(1.0,0.0),c(0.9,0.1))
 
 # create parameter space data frame
