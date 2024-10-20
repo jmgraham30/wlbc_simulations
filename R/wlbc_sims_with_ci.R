@@ -22,7 +22,7 @@ mu_vect_vals <- list(c(0.001,0.8),c(0.005,0.8),c(0.01,0.8),c(0.05,0.8),
 bin_props_vals <- list(c(1.0,0.0),c(0.9,0.1))
 
 # create parameter space data frame
-parms_df <- expand.grid(rep_num = rep_num_vals,
+parms_df <- expand_grid(rep_num = rep_num_vals,
                           F_val_m = F_m_vals,
                           F_cv = F_cv_vals,
                           mu_vect = mu_vect_vals,
