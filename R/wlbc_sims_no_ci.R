@@ -30,7 +30,7 @@ parms_df <- expand_grid(rep_num = rep_num_vals,
 )
 
 # run simulations
-sim_no_ci_df <- future_pmap(sample_n(parms_df,12), infection_freq_rf_rmu_sim,
+sim_no_ci_df <- future_pmap(parms_df, infection_freq_rf_rmu_sim,
                                   .options = furrr_options(seed = TRUE),
                                   .progress = TRUE) |>
   list_rbind()
@@ -38,4 +38,4 @@ sim_no_ci_df <- future_pmap(sample_n(parms_df,12), infection_freq_rf_rmu_sim,
 
 # save the results, note that only every other row is required
 saveRDS(sim_no_ci_df[seq(1,nrow(sim_no_ci_df),by=2), ],
-        file = "/media/grahamj7/Hague Backup/mu_sims_data")
+        file = "mu_sims_data/no_ci_sims.rds")
