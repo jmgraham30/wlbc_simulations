@@ -13,7 +13,7 @@ plan(multisession, workers = n_cores)
 rep_num_vals <- 1:25 # number of replicates
 N_val_vals <- c(1e3,1e4,1e5,1e6) # population size
 F_m_vals <- seq(1.0,1.5,by=0.025) # fecundity 
-F_cv_vals <- c(0.01,0.1) # coefficient of variation for F
+F_cv_vals <- c(0.0,0.01,0.1) # coefficient of variation for F
 # transmission rates and binomial proportions
 mu_vect_vals <- list(c(0.001,0.8),c(0.005,0.8),c(0.01,0.8),c(0.05,0.8),
                      c(0.1,0.8),c(0.15,0.8),c(0.2,0.8),c(0.25,0.8),
@@ -30,11 +30,12 @@ parms_df <- expand_grid(rep_num = rep_num_vals,
 )
 
 # run simulations
-sim_no_ci_df <- future_pmap(parms_df, infection_freq_rf_rmu_sim,
+sim_no_ci_df <- future_pmap(sample_n(parms_df,12), infection_freq_rf_rmu_sim,
                                   .options = furrr_options(seed = TRUE),
                                   .progress = TRUE) |>
   list_rbind()
 
 
 # save the results, note that only every other row is required
-# sim_no_ci_df[seq(1,nrow(sim_no_ci_df),by=2), ]
+saveRDS(sim_no_ci_df[seq(1,nrow(sim_no_ci_df),by=2), ],
+        file = "/media/grahamj7/Hague Backup/mu_sims_data")

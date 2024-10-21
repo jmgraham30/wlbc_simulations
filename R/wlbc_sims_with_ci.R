@@ -13,7 +13,7 @@ plan(multisession, workers = n_cores)
 rep_num_vals <- 1:25 # number of replicates
 N_val_vals <- c(1e3,1e4,1e5,1e6) # population size
 F_m_vals <- seq(1.0,1.5,by=0.025) # fecundity 
-F_cv_vals <- c(0.01,0.1) # coefficient of variation for F
+F_cv_vals <- c(0.0,0.01,0.1) # coefficient of variation for F
 sh_vals <- c(0.1,0.45) # CI strength
 # transmission rates and binomial proportions
 mu_vect_vals <- list(c(0.001,0.8),c(0.005,0.8),c(0.01,0.8),c(0.05,0.8),
