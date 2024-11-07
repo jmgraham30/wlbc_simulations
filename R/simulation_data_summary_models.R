@@ -40,10 +40,10 @@ p_t_mean_model <- gamlss(p_t_mean ~ N_val + s_h_fct +
                          family = BE,
                          data=data_df)
 
-p_t_sd_model <- gamlss(p_t_sd_log ~ N_val + s_h_fct + 
+p_t_sd_model <- gamlss(p_t_sd ~ N_val + s_h_fct + 
                          mu_vect + mu_groups_fct + mu_groups_fct:mu_vect + 
                          F_val + F_cv_fct + F_cv_fct:F_val,
-                       family = NO,
+                       family = ZAGA,
                        data=data_df)
 
 gen_steps_model <- gamlss(gen_steps ~ N_val + s_h_fct + 
@@ -63,10 +63,10 @@ data.frame(p_t_mean_model_results) |> rownames_to_column()
 
 
 write_csv(data.frame(p_t_mean_model_results) |> rownames_to_column()
-          ,"data/p_t_mean_model_results.csv")
+          ,"mu_sims_data/p_t_mean_model_results.csv")
 write_csv(data.frame(p_t_sd_model_results) |> rownames_to_column()
-          ,"data/p_t_sd_model_results.csv")
+          ,"mu_sims_data/p_t_sd_model_results.csv")
 write_csv(data.frame(gen_steps_model_results) |> rownames_to_column()
-          ,"data/gen_steps_model_results.csv")
+          ,"mu_sims_data/gen_steps_model_results.csv")
 
 
