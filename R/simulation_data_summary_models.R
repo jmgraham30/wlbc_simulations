@@ -18,6 +18,10 @@ data_df <- data_df |>
          F_val = F_val_m - min(F_val_m),
          p_t_sd = sqrt(p_t_var))
 
+data_df$mu_groups_fct <- factor(data_df$mu_groups_fct, levels = c("mu_group = 1.0","mu_group = 0.9"))
+data_df$s_h_fct <- factor(data_df$s_h_fct, levels = c("s_h = 0.0","s_h = 0.1","s_h = 0.45"))
+
+
 glimpse(data_df)
 
 data_df |>
