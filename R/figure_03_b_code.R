@@ -14,12 +14,15 @@ glimpse(plot_03_b_mu_df)
 
 plot_03_b_mu_df <- plot_03_b_mu_df |>
   filter(N_val == 10000, s_h != 0.45, F_cv > 0.0, persist_prop > 0.0, p_t_var > 0) |>
+  group_by(s_h_fct, mu_groups_fct, F_val_m, mu_vect) |>
+  summarise(n = n(),p_t_mean = mean(p_t_mean)) |>
   mutate(mu_groups_fct = factor(mu_groups_fct)) |>
   mutate(mu_group = fct_relevel(mu_groups_fct, c("mu_group = 1.0", "mu_group = 0.9"))) |>
   mutate(dist_from_02 = abs(0.2 - p_t_mean),
          dist_from_095 = abs(0.92 - p_t_mean),
          within_11_to_32 = ifelse(p_t_mean >= 0.11 & p_t_mean <= 0.32, "Yes", "No"),
-         within_91_to_97 = ifelse(p_t_mean >= 0.91 & p_t_mean <= 0.97, "Yes", "No"))
+         within_91_to_97 = ifelse(p_t_mean >= 0.91 & p_t_mean <= 0.97, "Yes", "No")) |>
+  ungroup()
 
 # glimpse data
 glimpse(plot_03_b_mu_df)
@@ -56,7 +59,7 @@ plot_03_b_mu_df |>
     breaks = mybreaks_dist
   ) +
   geom_point(data = plot_mu_df_02_ci, aes(y = F_val_m, as.character(mu_vect)), 
-             color = "red", size = 5, alpha = 0.05, shape = 18) +
+             color = "red", size = 5, shape = 18) +
   facet_wrap(~ s_h_fct + mu_group) +
   theme(
     axis.text = element_text(size = 12),
@@ -81,7 +84,7 @@ plot_03_b_mu_df |>
     breaks = mybreaks_dist
   ) +
   geom_point(data = plot_mu_df_095_ci, aes(y = F_val_m, as.character(mu_vect)), 
-             color = "red", size = 5, alpha = 0.05, shape = 18) +
+             color = "red", size = 5, shape = 18) +
   facet_wrap(~ s_h_fct + mu_group) +
   theme(
     axis.text = element_text(size = 12),
