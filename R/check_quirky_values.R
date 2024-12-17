@@ -1,25 +1,43 @@
 library(tidyverse)
-theme_set(theme_minimal())
+library(ggthemes)
+theme_set(theme_minimal(base_size = 14))
 
 # Load data
 sim_res <- read_csv("mu_sims_data/wlbc_simulations_results.csv")
 
+sim_res <- sim_res |>
+  filter(F_val_m > 1) |>
+  mutate(bin_props_c = 1 - bin_props,
+         mu_vect_c = 0.8,
+         turr_cond_1 = F_val_m*(1 - (mu_vect*bin_props + mu_vect_c*bin_props_c)),
+         turr_cond_2 = F_val_m*(mu_vect*bin_props + mu_vect_c*bin_props_c),
+         tc_met = ifelse(turr_cond_1 > 1, "Yes", "No"),
+         p_star = 1 - (F_val_m/(F_val_m - 1))*(mu_vect*bin_props + mu_vect_c*bin_props_c),
+         p_star_sgn = as.character(sign(p_star)))
+
 glimpse(sim_res)
 
+sim_res |>
+  ggplot(aes(x=turr_cond_1,y=turr_cond_2,color=tc_met)) +
+  geom_point() + facet_wrap(~mu_groups_fct) + 
+  scale_color_colorblind()
+
+sim_res |>
+  ggplot(aes(x=p_t_mean,y=log10(sqrt(p_t_var)),color=p_star_sgn)) + 
+  facet_grid(s_h_fct~tc_met) +
+  geom_jitter(alpha=0.5) + 
+  scale_color_colorblind() +
+  xlim(c(0,1))
 
 sim_res_1 <- sim_res |>
   filter(s_h == 0, bin_props < 1, F_val_m > 1) |>
-  mutate(bin_props_c = 1 - bin_props,
-         mu_vect_c = 0.8,
-         p_star = 1 - (F_val_m/(F_val_m - 1))*(mu_vect*bin_props + mu_vect_c*bin_props_c))
+  mutate(p_star = 1 - (F_val_m/(F_val_m - 1))*(mu_vect*bin_props + mu_vect_c*bin_props_c))
 
 glimpse(sim_res_1)
 
 sim_res_2 <- sim_res |>
   filter(s_h > 0, bin_props < 1, F_val_m > 1) |>
-  mutate(bin_props_c = 1 - bin_props,
-         mu_vect_c = 0.8,
-         p_star = (s_h+1-F_val_m - sqrt((s_h+1-F_val_m)^2 - 4*s_h*(F_val_m*(1 - mu_vect*bin_props + mu_vect_c*bin_props_c) - 1)*(1 - F_val_m*(mu_vect*bin_props + mu_vect_c*bin_props_c))))/(2*s_h*(1 - F_val_m*(mu_vect*bin_props + mu_vect_c*bin_props_c))))
+  mutate(p_star = (s_h+1-F_val_m - sqrt((s_h+1-F_val_m)^2 - 4*s_h*(F_val_m*(1 - mu_vect*bin_props + mu_vect_c*bin_props_c) - 1)*(1 - F_val_m*(mu_vect*bin_props + mu_vect_c*bin_props_c))))/(2*s_h*(1 - F_val_m*(mu_vect*bin_props + mu_vect_c*bin_props_c))))
 
 glimpse(sim_res_2)
 
@@ -31,15 +49,8 @@ sim_res <- sim_res |>
 glimpse(sim_res)
 
 sim_res |>
-  ggplot(aes(x=p_star_neg,y=p_t_mean)) + 
-  geom_jitter(alpha=0.3)
-
-sim_res |>
-  ggplot(aes(x=p_star_neg,y=log10(sqrt(p_t_var)))) + 
-  geom_jitter(alpha=0.3)
-
-sim_res |>
-  ggplot(aes(x=p_t_mean,y=log10(sqrt(p_t_var)))) + 
-  facet_wrap(~p_star_neg) +
+  ggplot(aes(x=p_t_mean,y=log10(sqrt(p_t_var)),color=p_star_neg)) + 
+  facet_wrap(~s_h_fct) +
   geom_jitter(alpha=0.3) + 
+  scale_color_colorblind() +
   xlim(c(0,1))
