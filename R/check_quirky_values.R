@@ -1,6 +1,57 @@
 library(tidyverse)
 library(ggthemes)
-theme_set(theme_minimal(base_size = 14))
+theme_set(theme_minimal(base_size = 12))
+
+
+
+# Load data
+sim_res <- read_csv("mu_sims_data/wlbc_simulations_results.csv")
+
+sim_res_b <- sim_res |>
+  filter(F_val_m == 1, s_h == 0) |>
+  mutate(bin_props_c = 1 - bin_props,
+         mu_vect_c = 0.8,
+         p_star_criterion = "No")
+
+glimpse(sim_res_b)
+
+sim_res_s_h_0 <- sim_res |>
+  filter(F_val_m > 1, s_h == 0) |>
+  mutate(bin_props_c = 1 - bin_props,
+         mu_vect_c = 0.8,
+         p_star = 1 - (F_val_m/(F_val_m - 1))*(mu_vect*bin_props + mu_vect_c*bin_props_c),
+         p_star_sgn = as.character(sign(p_star)),
+         p_star_criterion = ifelse(p_star_sgn == "-1","No","Yes")) |>
+  select(-c(p_star,p_star_sgn))
+
+glimpse(sim_res_s_h_0)
+
+sim_res_s_h_p <- sim_res |>
+  filter(s_h > 0) |>
+  mutate(bin_props_c = 1 - bin_props,
+         mu_vect_c = 0.8,
+         p_star = F_val_m*(1 - (mu_vect*bin_props + mu_vect_c*bin_props_c)),
+         p_star_criterion = ifelse(p_star > 1,"Yes","No")) |>
+  select(-c(p_star))
+
+glimpse(sim_res_s_h_p)
+
+sim_res <- bind_rows(sim_res_b, sim_res_s_h_0, sim_res_s_h_p)
+
+glimpse(sim_res)
+
+sim_res |>
+  filter(p_star_criterion == "No") |>
+  ggplot(aes(x=p_t_mean,y=log10(sqrt(p_t_var)))) + 
+  facet_grid(s_h_fct~mu_groups_fct + F_cv_fct) +
+  geom_jitter(alpha=0.5) + 
+  scale_color_colorblind() +
+  xlim(c(0,1))
+
+
+
+
+
 
 # Load data
 sim_res <- read_csv("mu_sims_data/wlbc_simulations_results.csv")
@@ -9,11 +60,11 @@ sim_res <- sim_res |>
   filter(F_val_m > 1) |>
   mutate(bin_props_c = 1 - bin_props,
          mu_vect_c = 0.8,
-         turr_cond_1 = F_val_m*(1 - (mu_vect*bin_props + mu_vect_c*bin_props_c)),
-         turr_cond_2 = F_val_m*(mu_vect*bin_props + mu_vect_c*bin_props_c),
+         turr_cond = F_val_m*(1 - (mu_vect*bin_props + mu_vect_c*bin_props_c)),
          tc_met = ifelse(turr_cond_1 > 1, "Yes", "No"),
          p_star = 1 - (F_val_m/(F_val_m - 1))*(mu_vect*bin_props + mu_vect_c*bin_props_c),
-         p_star_sgn = as.character(sign(p_star)))
+         p_star_sgn = as.character(sign(p_star)),
+         p_star_criterion = ifelse(p_star_sgn == "-1","No","Yes"))
 
 glimpse(sim_res)
 
