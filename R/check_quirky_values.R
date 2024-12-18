@@ -42,10 +42,11 @@ glimpse(sim_res)
 
 sim_res |>
   filter(p_star_criterion == "No") |>
-  ggplot(aes(x=p_t_mean,y=log10(sqrt(p_t_var)))) + 
+  ggplot(aes(x=p_t_mean,y=log10(sqrt(p_t_var)),color=F_val_m)) + 
   facet_grid(s_h_fct~mu_groups_fct + F_cv_fct) +
   geom_jitter(alpha=0.5) + 
-  scale_color_colorblind() +
+  labs(color="mean F") +
+  #scale_color_colorblind() +
   xlim(c(0,1))
 
 
