@@ -1,5 +1,6 @@
 library(tidyverse)
 library(ggthemes)
+library(wlbcmodeler)
 theme_set(theme_minimal(base_size = 12))
 
 
@@ -49,7 +50,8 @@ sim_res |>
   #scale_color_colorblind() +
   xlim(c(0,1))
 
-
+infection_freq_rf_rmu_iteration(1.025,0.1,c(0.01,0.0),c(1.0,0.0),10000) |>
+  plot_a_simulation() + ylim(c(0,1))
 
 
 
