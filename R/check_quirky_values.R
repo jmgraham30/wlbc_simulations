@@ -50,7 +50,10 @@ sim_res |>
   #scale_color_colorblind() +
   xlim(c(0,1))
 
-infection_freq_rf_rmu_iteration(1.025,0.1,c(0.01,0.0),c(1.0,0.0),10000) |>
+sim_res |>
+  filter(bin_props == 1.0, s_h == 0.0, F_cv == 0.1, p_t_mean > 0.0, p_star_criterion == "No") |> View()
+
+infection_freq_rf_rmu_iteration(1.0,0.1,c(0.001,0.0),c(1.0,0.0),10000) |>
   plot_a_simulation() + ylim(c(0,1))
 
 
