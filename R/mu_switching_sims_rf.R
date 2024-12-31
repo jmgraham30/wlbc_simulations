@@ -18,16 +18,23 @@ mu_switching_1 <- function(rep_num){
   
   p_t <- numeric(10000)
   p_t[1] <- 0.4
+  
+  F_val_m <- 1.125
+  F_cv <- 0.1
+  F_val_s <- exp(stats::rnorm(10000, mean = log(F_val_m), 
+                              sd = sqrt(log(F_cv^2 + 1))))
+  F_val <- base::ifelse(F_val_s < 0.001, 0.001, F_val_s)
+  
   for (iter in 2:10000){
     if (iter <= 5000){
       p_t[iter] <- infection_freq_rmu(p_t[iter-1],
-                                      F_val=1.125,
+                                      F_val=F_val[iter],
                                       mu_vect=c(0.005,0.0),
                                       bin_props=c(1.0,0.0),
                                       N_val=10000)
     }else {
       p_t[iter] <- infection_freq_rmu(p_t[iter-1],
-                                      F_val=1.125,
+                                      F_val=F_val[iter],
                                       mu_vect=c(0.005,0.8),
                                       bin_props=c(0.9,0.1),
                                       N_val=10000)
@@ -39,8 +46,8 @@ mu_switching_1 <- function(rep_num){
 }
 
 sim_data <- future_map(rep_num_vals, mu_switching_1,
-                        .options = furrr_options(seed = TRUE),
-                        .progress = TRUE) |>
+                       .options = furrr_options(seed = TRUE),
+                       .progress = TRUE) |>
   list_rbind()
 
 glimpse(sim_data)
@@ -65,16 +72,23 @@ mu_switching_2 <- function(rep_num){
   
   p_t <- numeric(10000)
   p_t[1] <- 0.4
+  
+  F_val_m <- 1.15
+  F_cv <- 0.1
+  F_val_s <- exp(stats::rnorm(10000, mean = log(F_val_m), 
+                              sd = sqrt(log(F_cv^2 + 1))))
+  F_val <- base::ifelse(F_val_s < 0.001, 0.001, F_val_s)
+  
   for (iter in 2:10000){
     if (iter <= 5000){
       p_t[iter] <- infection_freq_rmu(p_t[iter-1],
-                                      F_val=1.15,
+                                      F_val=F_val[iter],
                                       mu_vect=c(0.005,0.0),
                                       bin_props=c(1.0,0.0),
                                       N_val=10000)
     }else {
       p_t[iter] <- infection_freq_rmu(p_t[iter-1],
-                                      F_val=1.15,
+                                      F_val=F_val[iter],
                                       mu_vect=c(0.1,0.0),
                                       bin_props=c(1.0,0.0),
                                       N_val=10000)
@@ -111,17 +125,24 @@ mu_switching_3 <- function(rep_num){
   
   p_t <- numeric(10000)
   p_t[1] <- 0.4
+  
+  F_val_m <- 1.025
+  F_cv <- 0.1
+  F_val_s <- exp(stats::rnorm(10000, mean = log(F_val_m), 
+                              sd = sqrt(log(F_cv^2 + 1))))
+  F_val <- base::ifelse(F_val_s < 0.001, 0.001, F_val_s)
+  
   for (iter in 2:10000){
     if (iter <= 5000){
       p_t[iter] <- infection_freq_rmu_ci(p_t[iter-1],
-                                      F_val=1.025,
-                                      mu_vect=c(0.005,0.0),
-                                      bin_props=c(1.0,0.0),
-                                      s_h = 0.1,
-                                      N_val=10000)
+                                         F_val=F_val[iter],
+                                         mu_vect=c(0.005,0.0),
+                                         bin_props=c(1.0,0.0),
+                                         s_h = 0.1,
+                                         N_val=10000)
     }else {
       p_t[iter] <- infection_freq_rmu(p_t[iter-1],
-                                      F_val=1.025,
+                                      F_val=F_val[iter],
                                       mu_vect=c(0.05,0.0),
                                       bin_props=c(1.0,0.0),
                                       N_val=10000)
