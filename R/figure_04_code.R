@@ -16,7 +16,8 @@ plot_04_mu_df <- read_csv("mu_sims_data/wlbc_simulations_results.csv")
 glimpse(plot_04_mu_df)
 
 plot_04_mu_df <- plot_04_mu_df |>
-  filter(s_h != 0.45, persist_prop > 0.0, p_t_var > 0.0) |>
+  filter(s_h != 0.45, persist_prop > 0.0, p_t_var > 0.0,
+         fpop_scale >= 10) |>
   mutate(p_t_std = sqrt(p_t_var),
          p_t_std_log = log10(p_t_std)) |>
   mutate(mu_group = factor(mu_groups_fct)) |>

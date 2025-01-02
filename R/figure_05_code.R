@@ -16,7 +16,8 @@ plot_05_mu_df <- read_csv("mu_sims_data/wlbc_simulations_results.csv")
 glimpse(plot_05_mu_df)
 
 plot_05_mu_df <- plot_05_mu_df |>
-  filter(s_h != 0.45, persist_prop > 0.0, p_t_var > 0.0) |>
+  filter(s_h != 0.45, persist_prop > 0.0, p_t_var > 0.0,
+         fpop_scale >= 10) |>
   mutate(p_t_range = p_t_max - p_t_min) |>
   mutate(mu_group = factor(mu_groups_fct)) |>
   mutate(mu_group = fct_relevel(mu_group, c("mu_group = 1.0", "mu_group = 0.9"))) |>
