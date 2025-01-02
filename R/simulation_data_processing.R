@@ -80,5 +80,11 @@ wlbc_simulations_results_df <- wlbc_simulations_results_df |>
 # Glimpse data
 glimpse(wlbc_simulations_results_df)
 
+wlbc_simulations_results_df <- wlbc_simulations_results_df |>
+  mutate(fpop_scale = round(final_p_t * N_val))
+
+# Glimpse data
+glimpse(wlbc_simulations_results_df)
+
 # Save the data
 write_csv(wlbc_simulations_results_df, "mu_sims_data/wlbc_simulations_results.csv")
