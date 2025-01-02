@@ -8,6 +8,19 @@ theme_set(theme_minimal(base_size = 12))
 # Load data
 sim_res <- read_csv("mu_sims_data/wlbc_simulations_results.csv")
 
+glimpse(sim_res)
+
+sim_res <- sim_res |>
+  mutate(fpop_scale = round(final_p_t * N_val))
+
+range(sim_res$fpop_scale)
+
+sim_res |> ggplot(aes(x=log10(fpop_scale))) + 
+  geom_histogram(binwidth = 1,fill="lightblue",color="white") +
+  geom_vline(xintercept = 1, color = "red")
+
+sim_res <- sim_res |> filter(fpop_scale >= 10)
+
 sim_res_b <- sim_res |>
   filter(F_val_m == 1, s_h == 0) |>
   mutate(bin_props_c = 1 - bin_props,
@@ -42,7 +55,7 @@ sim_res <- bind_rows(sim_res_b, sim_res_s_h_0, sim_res_s_h_p)
 glimpse(sim_res)
 
 sim_res |>
-  filter(p_star_criterion == "No") |>
+  #filter(p_star_criterion == "No") |>
   ggplot(aes(x=p_t_mean,y=log10(sqrt(p_t_var)),color=F_val_m)) + 
   facet_grid(s_h_fct~mu_groups_fct + F_cv_fct) +
   geom_jitter(alpha=0.5) + 
