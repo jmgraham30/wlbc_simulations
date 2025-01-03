@@ -90,10 +90,10 @@ wlbc_simulations_results_df <- wlbc_simulations_results_df |>
 # Glimpse data
 glimpse(wlbc_simulations_results_df)
 
-elim_rows <- wlbc_simulations_results_df |> 
-  filter(fpop_scale <= 10 | (gen_steps == 10000 & fpop_scale <= 20)) |>
-  select(rn) |> unlist()
 
+wlbc_simulations_results_df <- wlbc_simulations_results_df |>
+  filter(fpop_scale > 10) |>
+  filter(gen_steps < 10000 | fpop_scale > 16)
 
 # Save the data
-write_csv(wlbc_simulations_results_df[-elim_rows, ], "mu_sims_data/wlbc_simulations_results.csv")
+write_csv(wlbc_simulations_results_df, "mu_sims_data/wlbc_simulations_results.csv")
