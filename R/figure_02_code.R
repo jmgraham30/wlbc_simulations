@@ -13,9 +13,7 @@ plot_02_mu_df <- read_csv("mu_sims_data/wlbc_simulations_results.csv")
 glimpse(plot_02_mu_df)
 
 plot_02_mu_df <- plot_02_mu_df |>
-  filter(N_val == 10000, s_h != 0.45, F_cv == 0.0, 
-         persist_prop > 0.0, p_t_var > 0,
-         fpop_scale >= 10) |>
+  filter(N_val == 10000, s_h != 0.45, F_cv == 0.0,p_t_var > 0) |>
   mutate(mu_groups_fct = factor(mu_groups_fct)) |>
   mutate(mu_group = fct_relevel(mu_groups_fct, c("mu_group = 1.0", "mu_group = 0.9")))
 
@@ -75,3 +73,4 @@ plot_02_mu_df |>
     y = TeX("$F$"),
     fill = TeX("Frequency \n std (log)"),
   )
+

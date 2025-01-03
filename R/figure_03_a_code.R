@@ -13,8 +13,7 @@ plot_03_a_mu_df <- read_csv("mu_sims_data/wlbc_simulations_results.csv")
 glimpse(plot_03_a_mu_df)
 
 plot_03_a_mu_df <- plot_03_a_mu_df |>
-  filter(N_val == 10000, s_h != 0.45, F_cv == 0.0, persist_prop > 0.0,
-         fpop_scale >= 10) |>
+  filter(N_val == 10000, s_h != 0.45, F_cv == 0.0) |>
   group_by(s_h_fct, mu_groups_fct, F_val_m, mu_vect) |>
   summarise(n = n(),p_t_mean = mean(p_t_mean)) |>
   mutate(mu_groups_fct = factor(mu_groups_fct)) |>
@@ -99,3 +98,4 @@ plot_03_a_mu_df |>
     y = TeX("$F$"),
     fill = TeX("Distance \n from 0.88"),
   )
+

@@ -81,16 +81,19 @@ wlbc_simulations_results_df <- wlbc_simulations_results_df |>
 glimpse(wlbc_simulations_results_df)
 
 wlbc_simulations_results_df <- wlbc_simulations_results_df |>
-  mutate(fpop_scale = round(final_p_t * N_val),
-         rn = 1:nrow(wlbc_simulations_results_df))
+  mutate(p_t_std = sqrt(p_t_var),
+         p_t_std_log = log10(p_t_std),
+         fpop_scale = round(final_p_t * N_val),
+         rn = 1:nrow(wlbc_simulations_results_df)) |> 
+  filter(persist_prop > 0.0)
 
 # Glimpse data
 glimpse(wlbc_simulations_results_df)
 
-
-rows_to_remove <- wlbc_simulations_results_df |>
-  filter((fpop_scale < 11 & gen_steps > 9500) | (p_t_mean < 0.01 & final_p_t < 0.01 & gen_steps > 9500)) |>
+elim_rows <- wlbc_simulations_results_df |> 
+  filter(fpop_scale <= 10 | (gen_steps == 10000 & fpop_scale <= 20)) |>
   select(rn) |> unlist()
 
+
 # Save the data
-write_csv(wlbc_simulations_results_df[-rows_to_remove, ], "mu_sims_data/wlbc_simulations_results.csv")
+write_csv(wlbc_simulations_results_df[-elim_rows, ], "mu_sims_data/wlbc_simulations_results.csv")

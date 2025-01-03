@@ -11,13 +11,41 @@ sim_res <- read_csv("mu_sims_data/wlbc_simulations_results.csv")
 glimpse(sim_res)
 
 sim_res <- sim_res |>
-  mutate(fpop_scale = round(final_p_t * N_val))
+  mutate(p_t_std_log_fct = factor(as.character(round(p_t_std_log)),
+                                  levels=c("-Inf","-10","-9","-8","-7","-6","-5","-4","-3","-2","-1","0")))
 
-range(sim_res$fpop_scale)
+glimpse(sim_res)
+
+table(sim_res$p_t_std_log_fct)
 
 sim_res |> ggplot(aes(x=log10(fpop_scale))) + 
   geom_histogram(binwidth = 1,fill="lightblue",color="white") +
-  geom_vline(xintercept = 1, color = "red")
+  geom_vline(xintercept = 1, color = "red") + 
+  scale_y_log10()
+
+elim_rows <- sim_res |> 
+  filter(persist_prop > 0.0, p_t_mean <= 0.1, p_t_std_log <= -4) |>
+  select(rn) |> unlist()
+
+tfdl <- sim_res[-elim_rows,]
+
+tfdl |> 
+  select(rep_num,F_val_m,F_cv,bin_props,s_h,N_val,
+         p_t_mean,gen_steps,fpop_scale,p_t_std_log) |>
+  arrange(p_t_std_log) |>
+  View()
+
+sim_res |> 
+  select(rep_num,F_val_m,F_cv,bin_props,s_h,N_val,
+         p_t_mean,gen_steps,fpop_scale,p_t_std_log) |>
+  arrange(p_t_std_log) |>
+  View()
+
+sim_res |> 
+  filter(fpop_scale <= 10,p_t_mean <= 0.01) |> 
+  ggplot(aes(x=log10(fpop_scale),fill=p_t_std_log_fct)) + 
+  geom_histogram(binwidth = 1,color="white") +
+  geom_vline(xintercept = 1, color = "red") 
 
 sim_res <- sim_res |> filter(fpop_scale >= 10)
 
