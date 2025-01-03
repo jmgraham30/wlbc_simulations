@@ -23,22 +23,11 @@ sim_res |> ggplot(aes(x=log10(fpop_scale))) +
   geom_vline(xintercept = 1, color = "red") + 
   scale_y_log10()
 
-elim_rows <- sim_res |> 
-  filter(persist_prop > 0.0, p_t_mean <= 0.1, p_t_std_log <= -4) |>
-  select(rn) |> unlist()
-
-tfdl <- sim_res[-elim_rows,]
-
-tfdl |> 
-  select(rep_num,F_val_m,F_cv,bin_props,s_h,N_val,
-         p_t_mean,gen_steps,fpop_scale,p_t_std_log) |>
-  arrange(p_t_std_log) |>
-  View()
 
 sim_res |> 
   select(rep_num,F_val_m,F_cv,bin_props,s_h,N_val,
          p_t_mean,gen_steps,fpop_scale,p_t_std_log) |>
-  arrange(p_t_std_log) |>
+  arrange(p_t_mean) |>
   View()
 
 sim_res |> 
