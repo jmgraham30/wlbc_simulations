@@ -128,8 +128,15 @@ mu_switching_3 <- function(rep_num){
   
   F_val_m <- 1.025
   F_cv <- 0.1
-  F_val_s <- exp(stats::rnorm(10000, mean = log(F_val_m), 
+  F_val_s_1 <- exp(stats::rnorm(5000, mean = log(F_val_m), 
                               sd = sqrt(log(F_cv^2 + 1))))
+  
+  F_val_m <- 1.075
+  F_val_s_2 <- exp(stats::rnorm(5000, mean = log(F_val_m), 
+                                sd = sqrt(log(F_cv^2 + 1))))
+  
+  F_val_s <- c(F_val_s_1,F_val_s_2)
+  
   F_val <- base::ifelse(F_val_s < 0.001, 0.001, F_val_s)
   
   for (iter in 2:10000){
