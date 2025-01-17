@@ -1,14 +1,26 @@
 library(tidyverse)
 
 # Load the data
-no_ci_df <- read_csv("mu_sims_data/no_ci_sims_stats.csv")
-ci_01_df <- read_csv("mu_sims_data/with_ci_01_sims_stats.csv")
-ci_45_df <- read_csv("mu_sims_data/with_ci_45_sims_stats.csv")
+no_ci_df <- read_csv("mu_sims_data/no_ci_sims_stats.csv") |>
+  filter(N_val != 1000 | mu_vect != 0.001 | bin_props != 1.0)
+ci_01_df <- read_csv("mu_sims_data/with_ci_01_sims_stats.csv") |>
+  filter(N_val != 1000 | mu_vect != 0.001 | bin_props != 1.0)
+ci_45_df <- read_csv("mu_sims_data/with_ci_45_sims_stats.csv") |>
+  filter(N_val != 1000 | mu_vect != 0.001 | bin_props != 1.0)
+
+no_ci_df_oof <- read_csv("mu_sims_data/no_ci_sims_stats_over_one.csv")
+ci_01_df_oof <- read_csv("mu_sims_data/with_ci_01_sims_stats_over_one.csv")
+ci_45_df_oof <- read_csv("mu_sims_data/with_ci_45_sims_stats_over_one.csv")
+
+no_ci_df <- rbind(no_ci_df, no_ci_df_oof)
+ci_01_df <- rbind(ci_01_df, ci_01_df_oof)
+ci_45_df <- rbind(ci_45_df, ci_45_df_oof)
 
 # Glimpse data
 glimpse(no_ci_df)
 glimpse(ci_01_df)
 glimpse(ci_45_df)
+
 
 # Compute and add persistence proportions column
 no_ci_pp <- no_ci_df |>
