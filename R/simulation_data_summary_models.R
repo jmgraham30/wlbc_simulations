@@ -32,13 +32,13 @@ data_df |>
 
 p_t_mean_model <- gamlss(p_t_mean ~ N_val + s_h_fct + 
                            mu_vect + mu_groups_fct + mu_groups_fct:mu_vect + 
-                           F_val + F_cv_fct + mu_vect:F_val,
+                           F_val + F_cv_fct,
                          family = BE,
                          data=data_df)
 
 p_t_sd_model <- gamlss(p_t_sd ~ N_val + s_h_fct + 
                          mu_vect + mu_groups_fct + mu_groups_fct:mu_vect + 
-                         F_val + F_cv_fct + mu_vect:F_val,
+                         F_val + F_cv_fct,
                        family = BE,
                        data=data_df,
                        control = gamlss.control(n.cyc = 200))
