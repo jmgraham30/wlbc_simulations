@@ -4,7 +4,7 @@ library(wlbcmodeler)
 theme_set(theme_minimal())
 
 # Load data
-abs_change_df <- readRDS("mu_sims_data/data_for_abs_change.rds")
+abs_change_df <- readRDS("mu_sims_data/data_for_abs_change_extreme_small_pop.rds")
 
 glimpse(abs_change_df)
 
@@ -48,7 +48,7 @@ abs_change_df <- abs_change_df |>
 glimpse(abs_change_df)
 
 
-saveRDS(abs_change_df, "mu_sims_data/data_for_abs_change.rds")
+saveRDS(abs_change_df, "mu_sims_data/data_for_abs_change_extreme_small_pop.rds")
 
 # Plot
 abs_change_df$prop_sim[[1]] |>
