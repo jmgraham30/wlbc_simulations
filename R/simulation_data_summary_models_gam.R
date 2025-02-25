@@ -65,13 +65,8 @@ plot_predictions(p_t_mean_model_n,condition = c("F_val"))
 plot_predictions(p_t_sd_model_n,condition = c("mu_vect"))
 plot_predictions(p_t_sd_model_n,condition = c("F_val"))
 
-plot_predictions(p_t_mean_model_l,condition = c("mu_vect","mu_groups_fct","s_h_fct","N_val"))
-plot_predictions(p_t_sd_model_l,condition = c("mu_vect","mu_groups_fct","s_h_fct","N_val"))
-plot_predictions(p_t_mean_model_n,condition = c("mu_vect","mu_groups_fct","s_h_fct","N_val"))
-plot_predictions(p_t_sd_model_n,condition = c("mu_vect","mu_groups_fct","s_h_fct","N_val"))
-
-plot_predictions(p_t_mean_model_l,condition = c("F_val","F_cv_fct","s_h_fct","N_val"))
-plot_predictions(p_t_sd_model_l,condition = c("F_val","F_cv_fct","s_h_fct","N_val"))
-plot_predictions(p_t_mean_model_n,condition = c("F_val","F_cv_fct","s_h_fct","N_val"))
-plot_predictions(p_t_sd_model_n,condition = c("F_val","F_cv_fct","s_h_fct","N_val"))
+plot_predictions(p_t_mean_model_l,condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"))
+plot_predictions(p_t_sd_model_l,condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"))
+plot_predictions(p_t_mean_model_n,condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"))
+plot_predictions(p_t_sd_model_n,condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"))
                  
