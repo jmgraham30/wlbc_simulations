@@ -29,42 +29,49 @@ data_df |>
 
 p_t_mean_model_l <- bam(p_t_mean ~ N_val + s_h_fct + 
                           mu_vect + mu_groups_fct + mu_groups_fct:mu_vect + 
-                          F_val + F_cv_fct + mu_vect:mu_groups_fct +  
-                          mu_vect:F_val,
+                          F_val + F_cv_fct,
                         family = betar,
                         data=data_df,
                         method="REML")
 
 p_t_sd_model_l <- bam(p_t_sd ~ N_val + s_h_fct + 
                         mu_vect + mu_groups_fct + mu_groups_fct:mu_vect + 
-                        F_val + F_cv_fct + mu_vect:mu_groups_fct +  
-                        mu_vect:F_val,
+                        F_val + F_cv_fct,
                       family = betar,
                       data=data_df,
                       method="REML")
 
 p_t_mean_model_n <- bam(p_t_mean ~ N_val + s_h_fct + 
-                           s(mu_vect,k=3,bs="cr") + mu_groups_fct + mu_groups_fct:mu_vect + 
-                           s(F_val,k=3,bs="cr") + F_cv_fct + s(mu_vect,by=mu_groups_fct,k=3,bs="cr") +  ti(mu_vect,F_val,k=3),
+                          s(mu_vect,k=3,bs='cr') + mu_groups_fct + s(mu_vect,by=mu_groups_fct,k=3,bs='cr') + 
+                          s(F_val,k=3,bs='cr') + F_cv_fct,
                          family = betar,
                          data=data_df,
                       method="REML")
 
 p_t_sd_model_n <- bam(p_t_sd ~ N_val + s_h_fct + 
-                      s(mu_vect,k=3,bs="cr") + mu_groups_fct + mu_groups_fct:mu_vect + 
-                      s(F_val,k=3,bs="cr") + F_cv_fct + s(mu_vect,by=mu_groups_fct,k=3,bs="cr") +  ti(mu_vect,F_val,k=3),
+                        s(mu_vect,k=3,bs='cr') + mu_groups_fct + s(mu_vect,by=mu_groups_fct,k=3,bs='cr') + 
+                        s(F_val,k=3,bs='cr') + F_cv_fct,
                     family = betar,
                     data=data_df,
                     method="REML")
 
-plot_predictions(p_t_mean_model_l,condition = c("mu_vect","mu_groups_fct","s_h_fct"))
-plot_predictions(p_t_sd_model_l,condition = c("mu_vect","mu_groups_fct","s_h_fct"))
-plot_predictions(p_t_mean_model_n,condition = c("mu_vect","mu_groups_fct","s_h_fct"))
-plot_predictions(p_t_sd_model_n,condition = c("mu_vect","mu_groups_fct","s_h_fct"))
+plot_predictions(p_t_mean_model_l,condition = c("mu_vect"))
+plot_predictions(p_t_mean_model_l,condition = c("F_val"))
+plot_predictions(p_t_sd_model_l,condition = c("mu_vect"))
+plot_predictions(p_t_sd_model_l,condition = c("F_val"))
 
-plot_predictions(p_t_mean_model_l,condition = c("F_val","mu_groups_fct","F_cv_fct"))
-plot_predictions(p_t_sd_model_l,condition = c("F_val","mu_groups_fct","F_cv_fct"))
-plot_predictions(p_t_mean_model_n,condition = c("F_val","mu_groups_fct","F_cv_fct"))
-plot_predictions(p_t_sd_model_n,condition = c("F_val","mu_groups_fct","F_cv_fct"))
+plot_predictions(p_t_mean_model_n,condition = c("mu_vect"))
+plot_predictions(p_t_mean_model_n,condition = c("F_val"))
+plot_predictions(p_t_sd_model_n,condition = c("mu_vect"))
+plot_predictions(p_t_sd_model_n,condition = c("F_val"))
 
+plot_predictions(p_t_mean_model_l,condition = c("mu_vect","mu_groups_fct","s_h_fct","N_val"))
+plot_predictions(p_t_sd_model_l,condition = c("mu_vect","mu_groups_fct","s_h_fct","N_val"))
+plot_predictions(p_t_mean_model_n,condition = c("mu_vect","mu_groups_fct","s_h_fct","N_val"))
+plot_predictions(p_t_sd_model_n,condition = c("mu_vect","mu_groups_fct","s_h_fct","N_val"))
+
+plot_predictions(p_t_mean_model_l,condition = c("F_val","F_cv_fct","s_h_fct","N_val"))
+plot_predictions(p_t_sd_model_l,condition = c("F_val","F_cv_fct","s_h_fct","N_val"))
+plot_predictions(p_t_mean_model_n,condition = c("F_val","F_cv_fct","s_h_fct","N_val"))
+plot_predictions(p_t_sd_model_n,condition = c("F_val","F_cv_fct","s_h_fct","N_val"))
                  
