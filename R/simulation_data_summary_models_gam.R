@@ -1,6 +1,7 @@
 library(tidyverse)
 library(mgcv)
 library(marginaleffects)
+library(forcats)
 
 theme_set(theme_bw())
 
@@ -58,7 +59,22 @@ p_t_sd_preds <- plot_predictions(p_t_sd_model_l,
                                    condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"),
                                    draw = FALSE)
 
+p_t_mean_preds <- p_t_mean_preds |>
+  mutate(mu_vect = fct_recode(mu_vect, "0" = "0.000",
+                              "0.005" = "0.004",
+                              "0.05" = "0.049",
+                              "0.1" = "0.099",
+                              "0.3" = "0.299"))
 
+p_t_sd_preds <- p_t_sd_preds |>
+  mutate(mu_vect = fct_recode(mu_vect, "0" = "0.000",
+                              "0.005" = "0.004",
+                              "0.05" = "0.049",
+                              "0.1" = "0.099",
+                              "0.3" = "0.299"))
+
+write_csv(p_t_mean_preds,"mu_sims_data/p_t_mean_preds.csv")
+write_csv(p_t_sd_preds,"mu_sims_data/p_t_sd_preds.csv")
 
 p_t_mean_model_n <- bam(p_t_mean ~ N_val + s_h_fct + 
                           s(mu_vect,k=3,bs='cr') + mu_groups_fct + s(mu_vect,by=mu_groups_fct,k=3,bs='cr') + 
