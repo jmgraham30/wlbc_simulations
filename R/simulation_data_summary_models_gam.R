@@ -41,6 +41,25 @@ p_t_sd_model_l <- bam(p_t_sd ~ N_val + s_h_fct +
                       data=data_df,
                       method="REML")
 
+
+plot_predictions(p_t_mean_model_l,condition = c("mu_vect"))
+plot_predictions(p_t_mean_model_l,condition = c("F_val"))
+plot_predictions(p_t_sd_model_l,condition = c("mu_vect"))
+plot_predictions(p_t_sd_model_l,condition = c("F_val"))
+
+plot_predictions(p_t_mean_model_l,condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"))
+plot_predictions(p_t_sd_model_l,condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"))
+
+p_t_mean_preds <- plot_predictions(p_t_mean_model_l,
+                                   condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"),
+                                   draw = FALSE)
+
+p_t_sd_preds <- plot_predictions(p_t_sd_model_l,
+                                   condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"),
+                                   draw = FALSE)
+
+
+
 p_t_mean_model_n <- bam(p_t_mean ~ N_val + s_h_fct + 
                           s(mu_vect,k=3,bs='cr') + mu_groups_fct + s(mu_vect,by=mu_groups_fct,k=3,bs='cr') + 
                           s(F_val,k=3,bs='cr') + F_cv_fct,
@@ -55,18 +74,13 @@ p_t_sd_model_n <- bam(p_t_sd ~ N_val + s_h_fct +
                     data=data_df,
                     method="REML")
 
-plot_predictions(p_t_mean_model_l,condition = c("mu_vect"))
-plot_predictions(p_t_mean_model_l,condition = c("F_val"))
-plot_predictions(p_t_sd_model_l,condition = c("mu_vect"))
-plot_predictions(p_t_sd_model_l,condition = c("F_val"))
+
 
 plot_predictions(p_t_mean_model_n,condition = c("mu_vect"))
 plot_predictions(p_t_mean_model_n,condition = c("F_val"))
 plot_predictions(p_t_sd_model_n,condition = c("mu_vect"))
 plot_predictions(p_t_sd_model_n,condition = c("F_val"))
 
-plot_predictions(p_t_mean_model_l,condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"))
-plot_predictions(p_t_sd_model_l,condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"))
 plot_predictions(p_t_mean_model_n,condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"))
 plot_predictions(p_t_sd_model_n,condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"))
                  
