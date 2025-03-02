@@ -51,16 +51,14 @@ p_t_mean_preds <- predictions(p_t_mean_model_l,
                                 newdata=datagrid(mu_vect = unique(data_df$mu_vect),
                                                  F_val = c(0.0,0.1,0.2,0.3,0.4,0.5),
                                                  mu_groups_fct = unique(data_df$mu_groups_fct),
-                                                 s_h_fct = unique(data_df$s_h_fct),
-                                                 F_cv_fct = unique(data_df$F_cv_fct))) |>
+                                                 s_h_fct = unique(data_df$s_h_fct))) |>
   as.data.frame()
 
 p_t_sd_preds <- predictions(p_t_sd_model_l,
                               newdata=datagrid(mu_vect = unique(data_df$mu_vect),
                                                F_val = c(0.0,0.1,0.2,0.3,0.4,0.5),
                                                mu_groups_fct = unique(data_df$mu_groups_fct),
-                                               s_h_fct = unique(data_df$s_h_fct),
-                                               F_cv_fct = unique(data_df$F_cv_fct))) |>
+                                               s_h_fct = unique(data_df$s_h_fct))) |>
   as.data.frame()
 
 glimpse(p_t_mean_preds)
