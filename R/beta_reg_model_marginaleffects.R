@@ -13,17 +13,17 @@ glimpse(p_t_mean_preds)
 glimpse(p_t_sd_preds)
 
 p_t_mean_preds |>
-  ggplot(aes(x=F_val, y=estimate, color=factor(as.character(mu_vect)))) +
+  ggplot(aes(x=mu_vect, y=estimate, color=factor(as.character(F_val)))) +
   geom_line() +
   facet_grid(rows=vars(mu_groups_fct),
              cols = vars(s_h_fct)) + 
   scale_color_colorblind() + 
-  labs(x = "F",y="Mean frequency",color="mu")
+  labs(x = "mu",y="Mean frequency",color="F")
   
 p_t_sd_preds |>
-  ggplot(aes(x=F_val, y=estimate, color=factor(as.character(mu_vect)))) +
+  ggplot(aes(x=mu_vect, y=estimate, color=factor(as.character(F_val)))) +
   geom_line() +
   facet_grid(rows=vars(mu_groups_fct),
              cols = vars(s_h_fct)) + 
   scale_color_colorblind() + 
-  labs(x = "F",y="Frequency sd",color="mu")
+  labs(x = "mu",y="Frequency sd",color="F")
