@@ -48,8 +48,8 @@ plot_predictions(p_t_mean_model_l,condition = c("F_val"))
 plot_predictions(p_t_sd_model_l,condition = c("mu_vect"))
 plot_predictions(p_t_sd_model_l,condition = c("F_val"))
 
-plot_predictions(p_t_mean_model_l,condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"))
-plot_predictions(p_t_sd_model_l,condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"))
+plot_predictions(p_t_mean_model_l,condition = c("mu_vect","F_val","s_h_fct","mu_groups_fct"))
+plot_predictions(p_t_sd_model_l,condition = c("mu_vect","F_val","s_h_fct","mu_groups_fct"))
 
 p_t_mean_preds <- plot_predictions(p_t_mean_model_l,
                                    condition = c("F_val","mu_vect","s_h_fct","mu_groups_fct"),
