@@ -12,8 +12,8 @@ glimpse(data_df)
 data_df <- data_df |>
   filter(persist_prop == 1.0) |>
   mutate(N_val = N_val - min(N_val),
-         mu_vect = mu_vect - min(mu_vect),
-         F_val = F_val_m - min(F_val_m),
+         mu_vect = mu_vect,
+         F_val = F_val_m,
          p_t_sd = sqrt(p_t_var))
 
 data_df$mu_groups_fct <- factor(data_df$mu_groups_fct, levels = c("mu_group = 1.0","mu_group = 0.9"))
@@ -49,14 +49,14 @@ plot_predictions(p_t_sd_model_l,condition = c("mu_vect","F_val","s_h_fct","mu_gr
 
 p_t_mean_preds <- predictions(p_t_mean_model_l,
                                 newdata=datagrid(mu_vect = unique(data_df$mu_vect),
-                                                 F_val = c(0.0,0.1,0.2,0.3,0.4,0.5),
+                                                 F_val = c(1.0,1.1,1.2,1.3,1.4,1.5),
                                                  mu_groups_fct = unique(data_df$mu_groups_fct),
                                                  s_h_fct = unique(data_df$s_h_fct))) |>
   as.data.frame()
 
 p_t_sd_preds <- predictions(p_t_sd_model_l,
                               newdata=datagrid(mu_vect = unique(data_df$mu_vect),
-                                               F_val = c(0.0,0.1,0.2,0.3,0.4,0.5),
+                                               F_val = c(1.0,1.1,1.2,1.3,1.4,1.5),
                                                mu_groups_fct = unique(data_df$mu_groups_fct),
                                                s_h_fct = unique(data_df$s_h_fct))) |>
   as.data.frame()
