@@ -1,8 +1,7 @@
 # R Project for The contributions of host population size and maternal transmission rate to fluctuating *Wolbachia* frequencies
 
 This repository contains the code and data for the manuscript 
-"The contributions of host population size and maternal transmission rate to fluctuating *Wolbachia* frequencies" by 
-Jason M. Graham, Joseph Klobusicky, and Michael T.J. Hague.
+"The contributions of host population size and maternal transmission rate to fluctuating *Wolbachia* frequencies."
 
 Simulations for the manuscript were conducted using the R programming language. 
 The code for the simulations is contained in the `R` directory, see code in 
