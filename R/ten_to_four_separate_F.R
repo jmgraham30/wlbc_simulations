@@ -26,5 +26,5 @@ plot_df_ten_four |>
   labs(
     x = TeX("$p_t$ (standard deviation)"),
     y = TeX("$p_t$ (mean)"),
-    title = TeX("$10^4$ simulations: $F$ coefficient of variation")
+    title = TeX("$N = 10^4$: $F_{cv}$ coefficient of variation")
   ) 
