@@ -20,11 +20,11 @@ plot_df_ten_four <- plot_df |>
 glimpse(plot_df_ten_four)
 
 plot_df_ten_four |>
-  ggplot(aes(x = p_t_std, y = p_t_mean)) + 
+  ggplot(aes(x = p_t_std_log, y = p_t_mean)) + 
   geom_point(alpha=0.25) +
-  facet_wrap(~ F_cv_fct, scales = "free_x") +
+  facet_wrap(~ F_cv_fct) +
   labs(
-    x = TeX("$p_t$ (standard deviation)"),
+    x = TeX("$p_t$ (standard deviation log-scale)"),
     y = TeX("$p_t$ (mean)"),
     title = TeX("$N = 10^4$: $F_{cv}$ coefficient of variation")
   ) 
