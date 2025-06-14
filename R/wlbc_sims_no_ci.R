@@ -3,7 +3,7 @@
 # load packages
 library(tidyverse) # for data manipulation
 library(furrr) # for parallel processing
-library(wlbcmodeler) # contains wolbachia infection frequency model implementation
+library(symbiontmodeler) # contains wolbachia infection frequency model implementation
 
 # parallel processing setup
 n_cores <- parallel::detectCores() - 2

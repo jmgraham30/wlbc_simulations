@@ -3,7 +3,7 @@ library(tidyverse) # for plots and data manipulation
 library(latex2exp) # for LaTeX expressions
 library(scales) # for scales
 library(forcats) # for factor manipulation
-library(wlbcmodeler) # for wolbachia model functions
+library(symbiontmodeler) # for wolbachia model functions
 
 # set plot theme
 theme_set(theme_bw())
