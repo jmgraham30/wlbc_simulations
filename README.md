@@ -1,4 +1,4 @@
-# R Project for The contributions of host population size and maternal transmission rate to fluctuating *Wolbachia* frequencies
+# R Project for Stochastic fluctuations of the facultative endosymbiont *Wolbachia* due to finite host population size
 
 This repository contains the code and data for the manuscript 
 "The contributions of host population size and maternal transmission rate to fluctuating *Wolbachia* frequencies."
