@@ -1,7 +1,7 @@
 # R Project for Stochastic fluctuations of the facultative endosymbiont *Wolbachia* due to finite host population size
 
 This repository contains the code and data for the manuscript 
-"The contributions of host population size and maternal transmission rate to fluctuating *Wolbachia* frequencies."
+"Stochastic fluctuations of the facultative endosymbiont *Wolbachia* due to finite host population size."
 
 Simulations for the manuscript were conducted using the R programming language. 
 The code for the simulations is contained in the `R` directory, see code in 
